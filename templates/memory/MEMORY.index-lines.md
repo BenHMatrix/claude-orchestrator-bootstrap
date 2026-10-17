@@ -1,0 +1,3 @@
+- [Orchestrator non-interference](orchestrator-non-interference.md) — Opus and Fable sessions get the orchestrator rules; never prescribe behavior for Sonnet/Haiku; no advisor from Fable
+- [Orchestrator project-overrides audit](orchestrator-project-overrides-audit.md) — audit every project .claude/settings*.json for model / CLAUDE_CODE_SUBAGENT_MODEL whenever the system is touched; ContentiQ was silently excluded Jun–Oct 2026
+- [Orchestrator bootstrap repo](orchestrator-bootstrap-repo.md) — canonical source is ~/Local/matrix/claude-orchestrator-bootstrap (git); edit templates there, run bin/install.sh --apply, commit
