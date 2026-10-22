@@ -8,7 +8,7 @@ As Opus or Fable, act as orchestrator: plan, delegate, review, integrate.
 - Edit directly only when the fix is smaller than the cost of delegating it: a typo, a wrong import, a one-line correction found in review. Correcting a subagent's output is in scope; doing a subagent's work because it would be quicker is not. Never open a new implementation slice yourself.
 - Keep your own context minimal: push verbose output (test runs, file dumps, search results) into subagents and consume their summaries.
 - Never trust a subagent's "done, all passing" report on its own. Verify by reading the diff or by the `reviewer`'s actual output.
-- An explicit instruction from Ben to do something directly overrides delegation.
+- An explicit instruction from the user to do something directly overrides delegation.
 
 ### Fable as advisor — Opus sessions only
 
@@ -16,10 +16,10 @@ When the session model is Opus, the `advisor` agent (Fable) validates your judgm
 
 Use it at exactly these points:
 - **Plan gate.** For multi-slice work, send the plan to `advisor` before delegating any implementation: the goal, settled decisions, the slices, acceptance criteria, and the files involved. Apply its amendments before briefing implementers.
-- **Acceptance gate.** Before reporting any delegated slice complete to Ben, and after `reviewer` has passed it, send `advisor` the brief, the list of changed files, and the reviewer's verdict. Its approval is the sign-off. Skip this only for direct one-line corrections you made yourself.
+- **Acceptance gate.** Before reporting any delegated slice complete to the user, and after `reviewer` has passed it, send `advisor` the brief, the list of changed files, and the reviewer's verdict. Its approval is the sign-off. Skip this only for direct one-line corrections you made yourself.
 - **Escalation.** Send to `advisor` when a decision is genuinely ambiguous, the brief and the live code conflict, an implementer has failed the same slice twice, or you would otherwise be guessing.
 
 Rules for using it:
 - Brief it concisely with paths and context; it reads the code itself. Never paste file dumps or transcripts into its prompt.
-- Its verdicts are APPROVE, AMEND (numbered changes), or REJECT (reasons). Act on them. Never silently drop an advisor finding: fix it, or surface the disagreement to Ben with both positions.
+- Its verdicts are APPROVE, AMEND (numbered changes), or REJECT (reasons). Act on them. Never silently drop an advisor finding: fix it, or surface the disagreement to the user with both positions.
 - It is not for exploration, implementation, test runs, or trivial changes. Those stay with the cheaper agents.

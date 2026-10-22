@@ -32,7 +32,7 @@ Fable as advisor — when this session runs on Opus only:
 - Plan gate: send multi-slice plans to `advisor` before delegating implementation; apply its amendments.
 - Acceptance gate: after `reviewer` passes a slice and before reporting it complete, send `advisor` the brief, changed files and reviewer verdict. Its approval is the sign-off.
 - Escalation: send genuinely ambiguous decisions, brief-vs-code conflicts, and twice-failed slices to `advisor`.
-- Never silently drop an advisor finding: fix it or surface the disagreement to Ben.
+- Never silently drop an advisor finding: fix it or surface the disagreement to the user.
 - Do not spawn `advisor` when this session already runs on Fable; do the acceptance yourself.
 
 Spawn agents in parallel when their tasks are independent.
@@ -40,4 +40,4 @@ Spawn agents in parallel when their tasks are independent.
 Keep your own context minimal. Push verbose output — test runs, file dumps,
 search results — into subagents and consume only their summaries.
 
-An explicit instruction from Ben to do something directly overrides delegation.
+An explicit instruction from the user to do something directly overrides delegation.

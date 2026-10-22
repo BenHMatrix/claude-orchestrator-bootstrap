@@ -84,8 +84,8 @@ Edit `~/.claude/CLAUDE.md`. The "Orchestrator Mode — keyed to model tier" sect
 - Delegation defaults to `explorer`/`implementer`/`reviewer`; pin a cheaper model on any other agent type.
 - Direct edits only for corrections smaller than a delegation round-trip; never open an implementation slice yourself.
 - Never trust a subagent's self-report; verify by diff or reviewer output.
-- Subsection "Fable as advisor — Opus sessions only": plan gate (multi-slice work, before implementation), acceptance gate (every delegated slice, after reviewer passes, before reporting to Ben), escalation (ambiguity, brief-vs-code conflict, twice-failed slice). Never spawn advisor from a Fable session. Never silently drop an advisor finding.
-- Ben's explicit instruction to do something directly overrides delegation.
+- Subsection "Fable as advisor — Opus sessions only": plan gate (multi-slice work, before implementation), acceptance gate (every delegated slice, after reviewer passes, before reporting to the user), escalation (ambiguity, brief-vs-code conflict, twice-failed slice). Never spawn advisor from a Fable session. Never silently drop an advisor finding.
+- The user's explicit instruction to do something directly overrides delegation.
 
 ## Step 3 — Set the default model
 
@@ -102,7 +102,7 @@ find ~/Local -maxdepth 5 -path '*/.claude/settings*.json' -not -path '*/node_mod
   | xargs grep -lE '"model"|CLAUDE_CODE_SUBAGENT_MODEL|"agent"'
 ```
 
-Expected result: no hits. Any hit must be removed (or explicitly justified to Ben). Also check `~/.zshrc`, `~/.zprofile`, `~/.zshenv` for `CLAUDE_CODE_SUBAGENT_MODEL`.
+Expected result: no hits. Any hit must be removed (or explicitly justified to the user). Also check `~/.zshrc`, `~/.zprofile`, `~/.zshenv` for `CLAUDE_CODE_SUBAGENT_MODEL`.
 
 ## Step 5 — Verify
 
@@ -115,7 +115,7 @@ Expected result: no hits. Any hit must be removed (or explicitly justified to Be
 
 1. **Do NOT set `CLAUDE_CODE_SUBAGENT_MODEL`** anywhere (global settings `env`, project settings, shell rc). Its position in model resolution (env var → per-call → frontmatter → inherit) means it overrides per-agent `model:` frontmatter, flattening the Haiku/Sonnet/Fable tiering this design depends on. It would also force the Fable-pinned `advisor` down to whatever the env var says, silently defeating the advisor gate.
 2. **Do NOT set `model` in any project settings file.** The session tier is a per-user, per-session choice (`/model`), not a per-project constant. A project override hides a project from the orchestrator rules.
-3. **Do NOT remove Edit/Write/Bash from the orchestrator.** Ben has explicitly rejected hard-blocking.
+3. **Do NOT remove Edit/Write/Bash from the orchestrator.** The user has explicitly rejected hard-blocking.
 4. **Do NOT add PreToolUse/UserPromptSubmit hooks** as part of this setup. Held in reserve for observed drift. If ever added: settings-file hooks also fire inside subagents (payload carries `agent_id`/`agent_type`), and exit-2 block messages are not fed back to Claude; prefer non-blocking `additionalContext` nudges.
 5. **Do NOT set the `agent` key in any settings file** as part of this setup. It replaces the default system prompt for the main thread; held in reserve per project.
 6. **Do NOT spawn `advisor` from a Fable session.** Same tier reviewing itself is pure cost.
